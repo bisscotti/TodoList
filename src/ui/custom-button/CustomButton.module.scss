@@ -1,0 +1,38 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: var(--purple);
+  &:hover{
+    background-color: var(--purple-hover);
+  }
+}
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.pressed {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.primary {
+  border: none;
+  background-color: var(--purple);
+  &:hover{
+    background-color: var(--purple-hover);
+  }
+}
+
+.secondary {
+  display: flex;
+  justify-content: center;
+  background: transparent;
+  border: 2px solid var(--purple);
+  &:hover {
+    background-color: #6C63FF21;
+  }
+}

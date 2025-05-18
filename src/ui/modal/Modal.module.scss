@@ -1,0 +1,101 @@
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9950;
+  padding: 16px;
+  transition: opacity 0.3s ease, background-color 0.3s ease,
+    backdrop-filter 0.3s ease;
+}
+.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modalContent {
+  background-color: var(--background-color);
+  border-radius: 16px;
+  padding: 18px 0;
+  width: 504px;
+  height: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  .innerModal {
+    width: 90%;
+    height: 100%;
+    background: transparent;
+    margin: 0 auto;
+    gap: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    .buttons {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: space-between;
+      .btn {
+        padding: 10px 22px;
+      }
+    }
+  }
+}
+.twoInputs {
+  width: 100%;
+}
+.textarea {
+  width: 100%;
+  margin-top: 18px;
+  padding: 10px 12px;
+  min-height: 100px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: 'Inter';
+  background: transparent;
+  border: 2px solid var(--search-color);
+  resize: none;
+  color: var(--text-color);
+  &::placeholder {
+    font-size: 16px;
+    font-family: 'Inter';
+    color: var(--placeholder);
+  }
+  &:focus {
+    outline: none;
+  }
+}
+.deadline {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+.info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+@media screen and (max-width: 414px) {
+  .modalBackdrop {
+    width: 100vw;
+    height: auto;
+    align-items: start;
+  }
+  .modalContent {
+    width: 100%;
+    margin-top: 30px;
+  }
+}

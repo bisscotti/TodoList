@@ -1,0 +1,31 @@
+.h1 {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 125%;
+}
+.bodyText {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 160%;
+}
+.smallBodyText {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 135%;
+}
+.TIsUpper{
+  text-transform: uppercase;
+}
+
+.white {
+  color: var(--white);
+}
+.purple {
+  color: var(--purple);
+}
+.textColor{
+  color: var(--text-color);
+}
+.red {
+  color: var(--trash-hover)
+}

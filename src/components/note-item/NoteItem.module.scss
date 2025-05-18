@@ -1,0 +1,43 @@
+.note {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  gap: 12px;
+  overflow: hidden;
+  background-color: var(--background-color);
+  position: relative;
+}
+.mainText {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.text {
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  .icon {
+    color: var(--icon-not-active);
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .pencil {
+    &:hover {
+      color: var(--purple);
+    }
+  }
+  .trash {
+    &:hover {
+      color: var(--trash-hover);
+    }
+  }
+}
