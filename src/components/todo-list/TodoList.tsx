@@ -18,22 +18,25 @@ export const TodoList: FC = () => {
   const [deadline, setDeadline] = useState<Date | undefined>(undefined);
   const [status, setStatus] = useState<Status>('In progress');
   const {
-    todos,
     selectedTodo,
     setSelectedTodo,
     removeTodo,
-    search,
-    filter,
     addTodo,
     editTodo,
     setStatus: setStatusInStore,
+    getFilteredTodos
   } = useTodoStore();
 
+  const resetFormState = () => {
+    setTitle('');
+    setDesc('');
+    setDeadline(undefined);
+    setStatus('In progress');
+    setIsEditMode(false);
+    setSelectedTodo(null);
+    setIsOpenModal(false);
+  };
   const handleApply = () => {
-    if (!title.trim() || !deadline) {
-      toast.error('Input title, description and deadline with date and time');
-      return;
-    }
 
     if (isEditMode && selectedTodo) {
       editTodo(selectedTodo.id, title, desc, status === 'Completed', deadline);
@@ -44,22 +47,10 @@ export const TodoList: FC = () => {
       toast.success('Todo is added!');
     }
 
-    setTitle('');
-    setDesc('');
-    setDeadline(undefined);
-    setStatus('In progress');
-    setIsEditMode(false);
-    setSelectedTodo(null);
-    setIsOpenModal(false);
+    resetFormState();
   };
   const handleCloseModal = () => {
-    setIsOpenModal(false);
-    setIsEditMode(false);
-    setSelectedTodo(null);
-    setTitle('');
-    setDesc('');
-    setDeadline(undefined);
-    setStatus('In progress');
+    resetFormState();
   };
 
   const handleOpenEditModal = (todo: TTodo) => {
@@ -72,22 +63,11 @@ export const TodoList: FC = () => {
     setIsOpenModal(true);
   };
 
-  const now = Date.now();
-  const filteredTodos = todos
-    .filter((todo) => todo.title.toLowerCase().includes(search.toLowerCase()))
-    .filter((todo) => {
-      if (filter === 'All') return true;
-      if (filter === 'New') return now - todo.createdAt <= 5 * 60_000;
-      if (filter === 'Completed') return todo.completed;
-      if (filter === 'In progress') return !todo.completed;
-      return true;
-    });
-
   return (
     <MultiContainer>
       <div className={styles.content}>
-        {filteredTodos.length > 0 ? (
-          filteredTodos.map((todo) => (
+        {getFilteredTodos().length > 0 ? (
+          getFilteredTodos().map((todo) => (
             <NoteItem
               key={todo.id}
               text={todo.title}

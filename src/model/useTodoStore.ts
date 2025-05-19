@@ -7,7 +7,7 @@ const initialTodos: TTodo[] = JSON.parse(
   ...todo,
   deadline: todo.deadline ? new Date(todo.deadline) : undefined,
 }));
-export const useTodoStore = create<TState & TActions>((set) => ({
+export const useTodoStore = create<TState & TActions>((set, get) => ({
   todos: initialTodos,
   selectedTodo: null,
   search: '',
@@ -53,6 +53,20 @@ export const useTodoStore = create<TState & TActions>((set) => ({
   setSelectedTodo: (todo) => set({ selectedTodo: todo }),
   setSearch: (value) => set({ search: value }),
   setFilter: (filter) => set({ filter }),
+  getFilteredTodos: () => {
+    const { todos, search, filter } = get();
+    const now = Date.now();
+
+    return todos
+      .filter((todo) => todo.title.toLowerCase().includes(search.toLowerCase()))
+      .filter((todo) => {
+        if (filter === 'All') return true;
+        if (filter === 'New') return now - todo.createdAt <= 5 * 60_000;
+        if (filter === 'Completed') return todo.completed;
+        if (filter === 'In progress') return !todo.completed;
+        return true;
+      });
+  },
 }));
 
 useTodoStore.subscribe((state) => {

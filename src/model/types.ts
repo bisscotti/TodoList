@@ -15,6 +15,7 @@ export type TState = {
   selectedTodo: TTodo | null;
   search: string;
   filter: Filter;
+  getFilteredTodos: () => TTodo[];
 };
 
 export type TActions = {

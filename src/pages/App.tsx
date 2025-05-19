@@ -18,7 +18,7 @@ export const App: FC = () => {
 
       <Header theme={theme} setTheme={setTheme} />
       <TodoList/>
-      <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer position="top-right" autoClose={2750} />
     </div>
   );
 };
