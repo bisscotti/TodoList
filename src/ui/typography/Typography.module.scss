@@ -13,7 +13,7 @@
   font-weight: 400;
   line-height: 135%;
 }
-.TIsUpper{
+.TIsUpper {
   text-transform: uppercase;
 }
 
@@ -23,9 +23,21 @@
 .purple {
   color: var(--purple);
 }
-.textColor{
+.textColor {
   color: var(--text-color);
 }
 .red {
-  color: var(--trash-hover)
+  color: var(--trash-hover);
+}
+
+@media screen and (max-width: 413px) {
+  .h1 {
+    font-size: 24px;
+  }
+  .bodyText {
+    font-size: 14px;
+  }
+  .smallBodyText {
+    font-size: 12px;
+  }
 }

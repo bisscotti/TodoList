@@ -2,8 +2,8 @@ import type { FC } from 'react';
 import type { TIconProps } from '../../types/types';
 
 export const IconPencil: FC<TIconProps> = ({
-  width = 15,
-  height = 14,
+  width = 18.7,
+  height = 18.7,
   className,
   onClick,
 }) => {

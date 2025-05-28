@@ -25,6 +25,9 @@
     font-size: 16px;
     font-family: 'Inter';
     color: var(--placeholder) !important;
+    @media screen and (max-width: 413px) {
+      font-size: 12px;
+    }
   }
   &:focus {
     outline: none;

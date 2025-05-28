@@ -28,6 +28,7 @@
   width: 504px;
   height: auto;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0s ease;
   .innerModal {
     width: 90%;
     height: 100%;
@@ -68,6 +69,9 @@
     font-size: 16px;
     font-family: 'Inter';
     color: var(--placeholder);
+    @media screen and (max-width: 413px) {
+      font-size: 12px
+    }
   }
   &:focus {
     outline: none;
@@ -92,10 +96,9 @@
   .modalBackdrop {
     width: 100vw;
     height: auto;
-    align-items: start;
+    align-items: center;
   }
   .modalContent {
-    width: 100%;
-    margin-top: 30px;
+    width: 100%;    
   }
 }

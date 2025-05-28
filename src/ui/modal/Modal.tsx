@@ -6,6 +6,7 @@ import { Typography } from '../typography/Typography';
 import { CustomButton } from '../custom-button/CustomButton';
 import { CustomInput } from '../custom-input/CustomInput';
 import type { TModalProps } from '../../types/types';
+import { formatDateTimeLocal, formatReadableDate } from '../../lib/helpers';
 
 export const Modal: FC<TModalProps> = ({
   isOpen,
@@ -21,11 +22,16 @@ export const Modal: FC<TModalProps> = ({
   deadline,
   setDeadline,
 }) => {
-  const [errors, setErrors] = useState<{ title?: string; desc?: string; deadline?: string }>({});
+  const [errors, setErrors] = useState<{
+    title?: string;
+    desc?: string;
+    deadline?: string;
+  }>({});
   if (!isOpen) {
     return null;
   }
   const handleApply = () => {
+    (document.activeElement as HTMLElement)?.blur();
     const newErrors: typeof errors = {};
     if (!inputTitle?.trim()) {
       newErrors.title = 'Title is required';
@@ -48,6 +54,7 @@ export const Modal: FC<TModalProps> = ({
 
   return createPortal(
     <div
+      data-testid='modal-backdrop'
       className={classNames(styles.modalBackdrop, {
         [styles.visible]: isOpen,
       })}
@@ -70,7 +77,11 @@ export const Modal: FC<TModalProps> = ({
               type='text'
               placeholder='Input your title...'
               value={inputTitle}
-              onChangeText={(e) => {setInputTitle?.(e.target.value); if (errors.title) setErrors((prev) => ({ ...prev, title: undefined }));}}
+              onChangeText={(e) => {
+                setInputTitle?.(e.target.value);
+                if (errors.title)
+                  setErrors((prev) => ({ ...prev, title: undefined }));
+              }}
               error={errors.title}
             />
             <textarea
@@ -79,30 +90,30 @@ export const Modal: FC<TModalProps> = ({
               value={inputDesc}
               onChange={(e) => {
                 setInputDesc?.(e.target.value);
-                if (errors.desc) setErrors((prev) => ({ ...prev, desc: undefined }));
+                if (errors.desc)
+                  setErrors((prev) => ({ ...prev, desc: undefined }));
               }}
             />
             {errors.desc && (
-              <Typography variant="smallBodyText" color="red" TIsUpper={false}>
+              <Typography variant='smallBodyText' color='red' TIsUpper={false}>
                 {errors.desc}
               </Typography>
             )}
           </div>
           <div className={styles.deadline}>
-            <Typography
-              variant='bodyText'
-              color='textColor'
-              TIsUpper={false}
-            >
+            <Typography variant='bodyText' color='textColor' TIsUpper={false}>
               Select deadline:
             </Typography>
             <CustomInput
               type='datetime-local'
-              value={deadline ? new Date(deadline).toLocaleString() : undefined}
+              value={deadline ? formatDateTimeLocal(deadline) : ''}
               className={styles.deadlineInput}
               onChangeDate={(e) => {
-                setDeadline?.(e.target.value ? new Date(e.target.value) : undefined);
-                if (errors.deadline) setErrors((prev) => ({ ...prev, deadline: undefined }));
+                setDeadline?.(
+                  e.target.value ? new Date(e.target.value) : undefined
+                );
+                if (errors.deadline)
+                  setErrors((prev) => ({ ...prev, deadline: undefined }));
               }}
               error={errors.deadline}
             />
@@ -118,8 +129,12 @@ export const Modal: FC<TModalProps> = ({
               </Typography>
             )}
             {deadline && (
-              <Typography variant='smallBodyText' color='textColor' TIsUpper={false}>
-                Deadline: {deadline.toLocaleString().slice(0, 17)}
+              <Typography
+                variant='smallBodyText'
+                color='textColor'
+                TIsUpper={false}
+              >
+                Deadline: {formatReadableDate(deadline)}
               </Typography>
             )}
           </div>

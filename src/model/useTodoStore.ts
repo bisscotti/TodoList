@@ -7,6 +7,7 @@ const initialTodos: TTodo[] = JSON.parse(
   ...todo,
   deadline: todo.deadline ? new Date(todo.deadline) : undefined,
 }));
+
 export const useTodoStore = create<TState & TActions>((set, get) => ({
   todos: initialTodos,
   selectedTodo: null,
